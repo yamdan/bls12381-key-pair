@@ -17,7 +17,7 @@ import bs58 from "bs58";
 import {
   DEFAULT_BLS12381_G1_PUBLIC_KEY_LENGTH,
   generateBls12381G1KeyPair
-} from "@mattrglobal/bbs-signatures";
+} from "@yamdan/bbs-signatures";
 import {
   JsonWebKey,
   KeyPairOptions,

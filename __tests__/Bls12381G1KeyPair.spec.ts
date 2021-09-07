@@ -20,7 +20,7 @@ import { Bls12381G1KeyPair } from "../src";
 import {
   DEFAULT_BLS12381_PRIVATE_KEY_LENGTH,
   DEFAULT_BLS12381_G1_PUBLIC_KEY_LENGTH
-} from "@mattrglobal/bbs-signatures";
+} from "@yamdan/bbs-signatures";
 import base58 from "bs58";
 
 describe("Bls12381G1KeyPair", () => {

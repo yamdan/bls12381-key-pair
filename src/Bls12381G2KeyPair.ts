@@ -19,7 +19,7 @@ import {
   generateBls12381G2KeyPair,
   blsVerify,
   blsSign
-} from "@mattrglobal/bbs-signatures";
+} from "@yamdan/bbs-signatures";
 import {
   JsonWebKey,
   KeyPairOptions,
