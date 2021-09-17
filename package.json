@@ -1,6 +1,6 @@
 {
   "name": "@yamdan/bls12381-key-pair",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "**Experimental** (do not use in production): Based on MATTR's [bls12381-key-pair](https://github.com/mattrglobal/bls12381-key-pair)",
   "homepage": "https://github.com/yamdan/bls12381-key-pair",
   "author": "yamdan",
