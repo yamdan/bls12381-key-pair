@@ -1,0 +1,10 @@
+{
+  "id": "did:example:489398593#test",
+  "controller": "did:example:489398593",
+  "publicKeyJwk": {
+    "kid": "did:example:489398593#test",
+    "crv": "Bls12381G2",
+    "kty": "EC",
+    "x": "h_rkcTKXXzRbOPr9UxSfegCbid2U_cVNXQUaKeGF7UhwrMJFP70uMH0VQ9-3-_2zDPAAjflsdeLkOXW3-ShktLxuPy8UlXSNgKNmkfb-rrj-FRwbs13pv_WsIf-eV66-"
+  }
+}

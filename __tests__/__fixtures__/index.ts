@@ -12,9 +12,15 @@
  */
 
 import exampleBls12381G1JwkKeyPair from "./exampleBls12381G1JwkKeyPair.json";
+import exampleBls12381G1JwkPublicKey from "./exampleBls12381G1JwkPublicKey.json";
+import exampleBls12381G1JwkInvalidKeyPair from "./exampleBls12381G1JwkInvalidKeyPair.json";
 import exampleBls12381G1KeyPair from "./exampleBls12381G1KeyPair.json";
+import exampleBls12381G1PublicKey from "./exampleBls12381G1PublicKey.json";
 import exampleBls12381G2JwkKeyPair from "./exampleBls12381G2JwkKeyPair.json";
+import exampleBls12381G2JwkPublicKey from "./exampleBls12381G2JwkPublicKey.json";
+import exampleBls12381G2JwkInvalidKeyPair from "./exampleBls12381G2JwkInvalidKeyPair.json";
 import exampleBls12381G2KeyPair from "./exampleBls12381G2KeyPair.json";
+import exampleBls12381G2PublicKey from "./exampleBls12381G2PublicKey.json";
 
 const exampleSingleMessage = new Uint8Array(Buffer.from("someData"));
 const exampleSingleMessageG2KeySignature =
@@ -25,7 +31,7 @@ const exampleSingleMessageG1KeySignature =
 
 const exampleMultiMessage = [
   new Uint8Array(Buffer.from("test")),
-  new Uint8Array(Buffer.from("value"))
+  new Uint8Array(Buffer.from("value")),
 ];
 const exampleMultiMessageG2KeySignature =
   "gTeYNYnogNM2En/YLq7pEtDDOi1PIlVtKBevXQjIMZtk1KdOtApAw2HUNV0eFG5mXhD28X0tmXbubLqwQb0K/lKxVZJvTS2MyuP1bRDnsyJB9tOE/AnpoNDWKnjjVu6tQNgG3YNQsJZhVgvHyUAo8A==";
@@ -40,9 +46,15 @@ const badSignatureBadLength =
 
 export {
   exampleBls12381G1JwkKeyPair,
+  exampleBls12381G1JwkPublicKey,
+  exampleBls12381G1JwkInvalidKeyPair,
   exampleBls12381G1KeyPair,
+  exampleBls12381G1PublicKey,
   exampleBls12381G2JwkKeyPair,
+  exampleBls12381G2JwkPublicKey,
+  exampleBls12381G2JwkInvalidKeyPair,
   exampleBls12381G2KeyPair,
+  exampleBls12381G2PublicKey,
   exampleSingleMessage,
   exampleSingleMessageG1KeySignature,
   exampleSingleMessageG2KeySignature,
@@ -50,5 +62,5 @@ export {
   exampleMultiMessageG1KeySignature,
   exampleMultiMessageG2KeySignature,
   badSignature,
-  badSignatureBadLength
+  badSignatureBadLength,
 };

@@ -13,19 +13,22 @@
 
 import {
   exampleBls12381G2JwkKeyPair,
+  exampleBls12381G2JwkPublicKey,
+  exampleBls12381G2JwkInvalidKeyPair,
   exampleBls12381G2KeyPair,
+  exampleBls12381G2PublicKey,
   exampleMultiMessage,
   exampleMultiMessageG2KeySignature,
   exampleSingleMessage,
   exampleSingleMessageG2KeySignature,
   badSignature,
-  badSignatureBadLength
+  badSignatureBadLength,
 } from "./__fixtures__";
 
 import { Bls12381G2KeyPair } from "../src";
 import {
   DEFAULT_BLS12381_PRIVATE_KEY_LENGTH,
-  DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH
+  DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH,
 } from "@yamdan/bbs-signatures";
 import base58 from "bs58";
 
@@ -106,8 +109,7 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should load public key from options", async () => {
-    let keyOptions = { ...exampleBls12381G2KeyPair };
-    delete keyOptions.privateKeyBase58;
+    let keyOptions = { ...exampleBls12381G2PublicKey };
 
     const myLdKey = new Bls12381G2KeyPair(keyOptions);
 
@@ -127,8 +129,7 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should load public key from options using .from()", async () => {
-    let keyOptions = { ...exampleBls12381G2KeyPair };
-    delete keyOptions.privateKeyBase58;
+    let keyOptions = { ...exampleBls12381G2PublicKey };
 
     const myLdKey = await Bls12381G2KeyPair.from(keyOptions);
 
@@ -148,8 +149,7 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should load public key from options using .fromJwk()", async () => {
-    let keyOptions = { ...exampleBls12381G2JwkKeyPair };
-    delete keyOptions.privateKeyJwk;
+    let keyOptions = { ...exampleBls12381G2JwkPublicKey };
 
     const myLdKey = await Bls12381G2KeyPair.fromJwk(keyOptions);
 
@@ -169,20 +169,15 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should throw an error when no JWK from options using .fromJwk()", async () => {
-    let keyOptions = { ...exampleBls12381G2JwkKeyPair };
-    delete keyOptions.privateKeyJwk;
-    delete keyOptions.publicKeyJwk;
+    let keyOptions = { ...exampleBls12381G2JwkInvalidKeyPair };
     await expect(Bls12381G2KeyPair.fromJwk(keyOptions)).rejects.toThrow(
       "The JWK provided is not a valid"
     );
   });
 
   it("should load public key from fingerprint", async () => {
-    let keyOptions = { ...exampleBls12381G2KeyPair };
-    delete keyOptions.privateKeyBase58;
-
     const myLdKey = Bls12381G2KeyPair.fromFingerprint({
-      fingerprint: `zUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`
+      fingerprint: `zUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`,
     });
 
     expect(myLdKey.id).toBe(
@@ -207,7 +202,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not start with multibase", async () => {
     expect(() =>
       Bls12381G2KeyPair.fromFingerprint({
-        fingerprint: `aUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`
+        fingerprint: `aUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`,
       })
     ).toThrowError(
       "Unsupported fingerprint type: expected first character to be `z` indicating base58 encoding, received `a`"
@@ -217,7 +212,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not contain correct key identifier", async () => {
     expect(() =>
       Bls12381G2KeyPair.fromFingerprint({
-        fingerprint: `zxC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`
+        fingerprint: `zxC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`,
       })
     ).toThrowError(
       "Unsupported public key identifier: expected second character to be `235` indicating BLS12381G2 key pair, received `8`"
@@ -227,7 +222,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not contain trailing byte integer", async () => {
     expect(() =>
       Bls12381G2KeyPair.fromFingerprint({
-        fingerprint: `zUC93gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`
+        fingerprint: `zUC93gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WD`,
       })
     ).toThrowError(
       "Missing variable integer trailing byte: expected third character to be `1` indicating trailing integer, received `2`"
@@ -237,7 +232,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should throw error loading public key from fingerprint when length is incorrect", async () => {
     expect(() =>
       Bls12381G2KeyPair.fromFingerprint({
-        fingerprint: `zUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WDaaaaa`
+        fingerprint: `zUC73gNPc1EnZmDDjYJzE8Bk89VRhuZPQYXFnSiSUZvX9N1i7N5VtMbJyowDR46rtARHLJYRVf7WMbGLb43s9tfTyKF9KFF22vBjXZRomcwtoQJmMNUSY7tfzyhLEy58dwUz3WDaaaaa`,
       })
     ).toThrowError(
       "Unsupported public key length: expected `96` received `100`"
@@ -267,15 +262,13 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should return undefined for privateKeyJwk when no privateKeyBuffer exists", async () => {
-    let keyOptions = { ...exampleBls12381G2JwkKeyPair };
-    delete keyOptions.privateKeyJwk;
+    let keyOptions = { ...exampleBls12381G2JwkPublicKey };
     const myLdKey = await Bls12381G2KeyPair.fromJwk(keyOptions);
     expect(myLdKey.privateKeyJwk).toBeUndefined();
   });
 
   it("should return undefined for privateKey when no privateKeyBuffer exists", async () => {
-    let keyOptions = { ...exampleBls12381G2KeyPair };
-    delete keyOptions.privateKeyBase58;
+    let keyOptions = { ...exampleBls12381G2PublicKey };
     const myLdKey = await Bls12381G2KeyPair.from(keyOptions);
     expect(myLdKey.privateKey).toBeUndefined();
   });
@@ -284,7 +277,7 @@ describe("Bls12381G2KeyPair", () => {
     const myLdKey = new Bls12381G2KeyPair(exampleBls12381G2KeyPair);
 
     const fingerprint = Bls12381G2KeyPair.fingerprintFromPublicKey({
-      publicKeyBase58: myLdKey.publicKey
+      publicKeyBase58: myLdKey.publicKey,
     });
 
     expect(fingerprint).toEqual(
@@ -348,7 +341,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should generate new key", async () => {
     const myLdKey = await Bls12381G2KeyPair.generate({
       id: "test-key-id",
-      controller: "test-key-controller"
+      controller: "test-key-controller",
     });
 
     expect(myLdKey.id).toBe("test-key-id");
@@ -374,7 +367,7 @@ describe("Bls12381G2KeyPair", () => {
         base58.decode(
           "2Dk1kmfJaZT2wbWd81piFyKBkd2ip29B3rfEpLud4bCBK3MwUXfk2z3YSLFeNojENkJzW"
         )
-      )
+      ),
     });
 
     expect(myLdKey.id).toBe("test-key-id");
@@ -402,8 +395,7 @@ describe("Bls12381G2KeyPair", () => {
   });
 
   it("should throw error on sign when no private key", async () => {
-    let keyOptions = exampleBls12381G2KeyPair;
-    delete keyOptions.privateKeyBase58;
+    let keyOptions = exampleBls12381G2PublicKey;
     const badKey = new Bls12381G2KeyPair(keyOptions);
     const { sign } = badKey.signer();
     expect(typeof sign).toBe("function");
@@ -431,7 +423,7 @@ describe("Bls12381G2KeyPair", () => {
         data: exampleSingleMessage,
         signature: new Uint8Array(
           Buffer.from(exampleSingleMessageG2KeySignature, "base64")
-        )
+        ),
       })
     ).toBe(true);
   });
@@ -443,7 +435,7 @@ describe("Bls12381G2KeyPair", () => {
         data: exampleMultiMessage,
         signature: new Uint8Array(
           Buffer.from(exampleMultiMessageG2KeySignature, "base64")
-        )
+        ),
       })
     ).toBe(true);
   });
@@ -453,7 +445,7 @@ describe("Bls12381G2KeyPair", () => {
     expect(
       await verify({
         data: exampleSingleMessage,
-        signature: new Uint8Array(Buffer.from(badSignature, "base64"))
+        signature: new Uint8Array(Buffer.from(badSignature, "base64")),
       })
     ).toBe(false);
   });
@@ -463,7 +455,7 @@ describe("Bls12381G2KeyPair", () => {
     expect(
       await verify({
         data: exampleSingleMessage,
-        signature: new Uint8Array(Buffer.from(badSignatureBadLength, "base64"))
+        signature: new Uint8Array(Buffer.from(badSignatureBadLength, "base64")),
       })
     ).toBe(false);
   });
