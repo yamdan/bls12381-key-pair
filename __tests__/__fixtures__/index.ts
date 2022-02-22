@@ -22,7 +22,12 @@ import exampleBls12381G2JwkInvalidKeyPair from "./exampleBls12381G2JwkInvalidKey
 import exampleBls12381G2KeyPair from "./exampleBls12381G2KeyPair.json";
 import exampleBls12381G2PublicKey from "./exampleBls12381G2PublicKey.json";
 
-const exampleSingleMessage = new Uint8Array(Buffer.from("someData"));
+const U8_STRING = Uint8Array.of(0);
+const U8_INTEGER = Uint8Array.of(1);
+
+const exampleSingleMessage = new Uint8Array(
+  Buffer.concat([U8_STRING, Buffer.from("someData")])
+);
 const exampleSingleMessageG2KeySignature =
   "o6eLL+eFfvSdh+vyNCsyZxmVJTLe2DuqD93W6hG7M7se+9MdoyEdPRNiB6aM5XjVBaJQ6wSt41HTVcHTnq3aOCDAVlc27m70SJwVCUgbsqA9J/tBEqfZF7VEGs79765wIubvyed/WQR/wZGUlRSg/w==";
 
@@ -30,8 +35,8 @@ const exampleSingleMessageG1KeySignature =
   "o6eLL+eFfvSdh+vyNCsyZxmVJTLe2DuqD93W6hG7M7se+9MdoyEdPRNiB6aM5XjVBaJQ6wSt41HTVcHTnq3aOCDAVlc27m70SJwVCUgbsqA9J/tBEqfZF7VEGs79765wIubvyed/WQR/wZGUlRSg/w==";
 
 const exampleMultiMessage = [
-  new Uint8Array(Buffer.from("test")),
-  new Uint8Array(Buffer.from("value")),
+  new Uint8Array(Buffer.concat([U8_STRING, Buffer.from("test")])),
+  new Uint8Array(Buffer.concat([U8_STRING, Buffer.from("value")])),
 ];
 const exampleMultiMessageG2KeySignature =
   "gTeYNYnogNM2En/YLq7pEtDDOi1PIlVtKBevXQjIMZtk1KdOtApAw2HUNV0eFG5mXhD28X0tmXbubLqwQb0K/lKxVZJvTS2MyuP1bRDnsyJB9tOE/AnpoNDWKnjjVu6tQNgG3YNQsJZhVgvHyUAo8A==";
