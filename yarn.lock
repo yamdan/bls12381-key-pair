@@ -958,10 +958,10 @@
     "@typescript-eslint/types" "4.31.2"
     eslint-visitor-keys "^2.0.0"
 
-"@yamdan/bbs-signatures@0.6.8":
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/@yamdan/bbs-signatures/-/bbs-signatures-0.6.8.tgz#3223cce7ac2b4888126ce88ab2e05e6f6da944bb"
-  integrity sha512-lbDSlnJvl8nq5z5uJG4d21H+Jfe7LrIUBrwTiHQ6bDPCObzBs+5NDwQYHaXiLRjnwq32ITqs7YDxWQencLqyIw==
+"@yamdan/bbs-signatures@0.6.12":
+  version "0.6.12"
+  resolved "https://registry.yarnpkg.com/@yamdan/bbs-signatures/-/bbs-signatures-0.6.12.tgz#73ba065aa9c972b3f7a1fc0e0bc547428a91870c"
+  integrity sha512-iBDyRgy29j4QRYbOHYI1qtNMSsA7/nFXmyVpowSkTMQqtp3suvE29TiOoZ6zLqoAXpY39vjba2Oyhw+bkOIU5w==
   dependencies:
     "@stablelib/random" "1.0.1"
 
