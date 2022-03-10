@@ -1,6 +1,6 @@
 {
   "name": "@zkp-ld/bls12381-key-pair",
-  "version": "0.7.13",
+  "version": "0.7.14",
   "description": "**Experimental** (do not use in production): Based on MATTR's [bls12381-key-pair](https://github.com/mattrglobal/bls12381-key-pair)",
   "homepage": "https://github.com/zkp-ld/bls12381-key-pair",
   "author": "yamdan",
@@ -55,7 +55,7 @@
     "typescript": "4.4.3"
   },
   "dependencies": {
-    "@zkp-ld/bbs-signatures": "0.6.13",
+    "@zkp-ld/bbs-signatures": "0.6.14",
     "bs58": "4.0.1",
     "rfc4648": "1.5.0"
   },
