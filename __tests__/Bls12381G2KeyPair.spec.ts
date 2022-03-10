@@ -29,7 +29,7 @@ import { Bls12381G2KeyPair } from "../src";
 import {
   DEFAULT_BLS12381_PRIVATE_KEY_LENGTH,
   DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH,
-} from "@yamdan/bbs-signatures";
+} from "@zkp-ld/bbs-signatures";
 import base58 from "bs58";
 
 const key = new Bls12381G2KeyPair(exampleBls12381G2KeyPair);

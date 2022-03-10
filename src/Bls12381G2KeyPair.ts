@@ -18,8 +18,8 @@ import {
   DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH,
   generateBls12381G2KeyPair,
   blsVerify,
-  blsSign
-} from "@yamdan/bbs-signatures";
+  blsSign,
+} from "@zkp-ld/bbs-signatures";
 import {
   JsonWebKey,
   KeyPairOptions,
@@ -27,11 +27,11 @@ import {
   KeyPairVerifier,
   GenerateKeyPairOptions,
   JwkKeyPairOptions,
-  BlsCurveName
+  BlsCurveName,
 } from "./types";
 import {
   assertBls12381G2PrivateJwk,
-  assertBls12381G2PublicJwk
+  assertBls12381G2PublicJwk,
 } from "./validators";
 import { convertBase64urlToBase58 } from "./utils";
 
@@ -70,7 +70,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
     return {
       async sign(): Promise<Uint8Array> {
         throw new Error("No private key to sign with.");
-      }
+      },
     };
   }
   return {
@@ -81,18 +81,18 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
           messages: [data],
           keyPair: {
             secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
-            publicKey: new Uint8Array(key.publicKeyBuffer)
-          }
+            publicKey: new Uint8Array(key.publicKeyBuffer),
+          },
         });
       }
       return await blsSign({
         messages: data,
         keyPair: {
           secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
-          publicKey: new Uint8Array(key.publicKeyBuffer)
-        }
+          publicKey: new Uint8Array(key.publicKeyBuffer),
+        },
       });
-    }
+    },
   };
 };
 
@@ -111,7 +111,7 @@ const verifierFactory = (key: Bls12381G2KeyPair): KeyPairVerifier => {
     return {
       async verify(): Promise<boolean> {
         throw new Error("No public key to verify with.");
-      }
+      },
     };
   }
 
@@ -123,7 +123,7 @@ const verifierFactory = (key: Bls12381G2KeyPair): KeyPairVerifier => {
           await blsVerify({
             messages: [data],
             publicKey: new Uint8Array(key.publicKeyBuffer),
-            signature
+            signature,
           })
         ).verified;
       }
@@ -131,10 +131,10 @@ const verifierFactory = (key: Bls12381G2KeyPair): KeyPairVerifier => {
         await blsVerify({
           messages: data,
           publicKey: new Uint8Array(key.publicKeyBuffer),
-          signature
+          signature,
         })
       ).verified;
-    }
+    },
   };
 };
 
@@ -221,7 +221,7 @@ export class Bls12381G2KeyPair {
     return new Bls12381G2KeyPair({
       ...options,
       privateKeyBase58: bs58.encode(keyPair.secretKey as Uint8Array),
-      publicKeyBase58: bs58.encode(keyPair.publicKey)
+      publicKeyBase58: bs58.encode(keyPair.publicKey),
     });
   }
 
@@ -256,7 +256,7 @@ export class Bls12381G2KeyPair {
         id,
         controller,
         publicKeyBase58: convertBase64urlToBase58(privateKeyJwk.x as string),
-        privateKeyBase58: convertBase64urlToBase58(privateKeyJwk.d as string)
+        privateKeyBase58: convertBase64urlToBase58(privateKeyJwk.d as string),
       });
     }
 
@@ -264,7 +264,7 @@ export class Bls12381G2KeyPair {
       return new Bls12381G2KeyPair({
         id,
         controller,
-        publicKeyBase58: convertBase64urlToBase58(publicKeyJwk.x as string)
+        publicKeyBase58: convertBase64urlToBase58(publicKeyJwk.x as string),
       });
     }
 
@@ -283,7 +283,7 @@ export class Bls12381G2KeyPair {
   static fromFingerprint({
     id,
     controller,
-    fingerprint
+    fingerprint,
   }: any): Bls12381G2KeyPair {
     if (fingerprint.substr(0, 1) != MULTIBASE_ENCODED_BASE58_IDENTIFIER) {
       throw new Error(
@@ -299,8 +299,9 @@ export class Bls12381G2KeyPair {
 
     if (buffer.length !== DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH + 2) {
       throw new Error(
-        `Unsupported public key length: expected \`${DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH}\` received \`${buffer.length -
-          2}\``
+        `Unsupported public key length: expected \`${DEFAULT_BLS12381_G2_PUBLIC_KEY_LENGTH}\` received \`${
+          buffer.length - 2
+        }\``
       );
     }
 
@@ -321,21 +322,21 @@ export class Bls12381G2KeyPair {
     //Defaults the controller to a DID key based controller
     if (!controller) {
       controller = `did:key:${Bls12381G2KeyPair.fingerprintFromPublicKey({
-        publicKeyBase58
+        publicKeyBase58,
       })}`;
     }
 
     //Defaults the id to the did key based fragment
     if (!id) {
       id = `#${Bls12381G2KeyPair.fingerprintFromPublicKey({
-        publicKeyBase58
+        publicKeyBase58,
       })}`;
     }
 
     return new Bls12381G2KeyPair({
       id,
       controller,
-      publicKeyBase58
+      publicKeyBase58,
     });
   }
 
@@ -376,7 +377,7 @@ export class Bls12381G2KeyPair {
       kid: this.id,
       kty: "EC",
       crv: BlsCurveName.G2,
-      x: base64url.stringify(this.publicKeyBuffer, { pad: false })
+      x: base64url.stringify(this.publicKeyBuffer, { pad: false }),
     };
   }
 
@@ -404,7 +405,7 @@ export class Bls12381G2KeyPair {
         kty: "EC",
         crv: BlsCurveName.G2,
         x: base64url.stringify(this.publicKeyBuffer, { pad: false }),
-        d: base64url.stringify(this.privateKeyBuffer, { pad: false })
+        d: base64url.stringify(this.privateKeyBuffer, { pad: false }),
       };
     }
     return undefined;
@@ -469,7 +470,7 @@ export class Bls12381G2KeyPair {
     ) {
       return {
         error: new Error("`fingerprint` must be a multibase encoded string."),
-        valid: false
+        valid: false,
       };
     }
     let fingerprintBuffer;
@@ -487,7 +488,7 @@ export class Bls12381G2KeyPair {
     if (!valid) {
       return {
         error: new Error("The fingerprint does not match the public key."),
-        valid: false
+        valid: false,
       };
     }
     return { valid };
