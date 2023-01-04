@@ -23,6 +23,9 @@ import {
   exampleSingleMessageG2KeySignature,
   badSignature,
   badSignatureBadLength,
+  exampleHolderSecretCommitment,
+  exampleHolderSecretKey,
+  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret,
 } from "./__fixtures__";
 
 import { Bls12381G2KeyPair } from "../src";
@@ -416,6 +419,19 @@ describe("Bls12381G2KeyPair", () => {
     expect(signature).toBeDefined();
   });
 
+  it("should sign multiple messages with holderSecretCommitment", async () => {
+    expect(typeof sign).toBe("function");
+    const holderSecretCommitment = Buffer.from(
+      exampleHolderSecretCommitment,
+      "base64"
+    );
+    const signature = await sign({
+      data: exampleMultiMessage,
+      holderSecretCommitment,
+    });
+    expect(signature).toBeDefined();
+  });
+
   it("should verify single message", async () => {
     expect(typeof verify).toBe("function");
     expect(
@@ -466,5 +482,20 @@ describe("Bls12381G2KeyPair", () => {
     expect(signature).toBeDefined();
     expect(typeof verify).toBe("function");
     expect(await verify({ data: exampleMultiMessage, signature })).toBe(true);
+  });
+
+  it("should sign and verify multiple messages with holderSecretCommitment", async () => {
+    expect(typeof verify).toBe("function");
+    expect(
+      await verify({
+        data: [...exampleMultiMessage, exampleHolderSecretKey],
+        signature: new Uint8Array(
+          Buffer.from(
+            exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret,
+            "base64"
+          )
+        ),
+      })
+    ).toBeDefined();
   });
 });

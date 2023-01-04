@@ -26,4 +26,5 @@ export interface KeyPairSigner {
  */
 export interface KeyPairSignerOptions {
   readonly data: Uint8Array | Uint8Array[];
+  holderSecretCommitment?: Uint8Array;
 }

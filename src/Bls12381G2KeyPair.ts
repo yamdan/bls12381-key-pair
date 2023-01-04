@@ -19,6 +19,7 @@ import {
   generateBls12381G2KeyPair,
   blsVerify,
   blsSign,
+  boundedBlsSign,
 } from "@zkp-ld/bbs-signatures";
 import {
   JsonWebKey,
@@ -74,7 +75,31 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
     };
   }
   return {
-    async sign({ data }): Promise<Uint8Array> {
+    async sign({ data, holderSecretCommitment }): Promise<Uint8Array> {
+      /**
+       * @description
+       * if holderSecretCommitment is inputted, use boundBlsSign
+       */
+      if (holderSecretCommitment instanceof Uint8Array) {
+        if (data instanceof Uint8Array) {
+          return await boundedBlsSign({
+            messages: [data],
+            keyPair: {
+              secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+              publicKey: new Uint8Array(key.publicKeyBuffer),
+            },
+            commitment: holderSecretCommitment,
+          });
+        }
+        return await boundedBlsSign({
+          messages: data,
+          keyPair: {
+            secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+            publicKey: new Uint8Array(key.publicKeyBuffer),
+          },
+          commitment: holderSecretCommitment,
+        });
+      }
       //TODO assert data runtime Uint8Array | Uint8Array[]
       if (data instanceof Uint8Array) {
         return await blsSign({
