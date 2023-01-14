@@ -78,7 +78,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
     async sign({ data, holderSecretCommitment }): Promise<Uint8Array> {
       /**
        * @description
-       * if holderSecretCommitment is inputted, use boundBlsSign
+       * if holderSecretCommitment is inputted, use blindBlsSign
        */
       if (holderSecretCommitment instanceof Uint8Array) {
         if (data instanceof Uint8Array) {
