@@ -19,7 +19,7 @@ import {
   generateBls12381G2KeyPair,
   blsVerify,
   blsSign,
-  boundedBlsSign,
+  blindBlsSign,
 } from "@zkp-ld/bbs-signatures";
 import {
   JsonWebKey,
@@ -82,7 +82,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
        */
       if (holderSecretCommitment instanceof Uint8Array) {
         if (data instanceof Uint8Array) {
-          return await boundedBlsSign({
+          return await blindBlsSign({
             messages: [data],
             keyPair: {
               secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
@@ -91,7 +91,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
             commitment: holderSecretCommitment,
           });
         }
-        return await boundedBlsSign({
+        return await blindBlsSign({
           messages: data,
           keyPair: {
             secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
