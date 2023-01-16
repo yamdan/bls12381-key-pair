@@ -25,7 +25,7 @@ import {
   badSignatureBadLength,
   exampleHolderSecretCommitment,
   exampleHolderSecretKey,
-  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret,
+  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
 } from "./__fixtures__";
 
 import { Bls12381G2KeyPair } from "../src";
@@ -488,14 +488,15 @@ describe("Bls12381G2KeyPair", () => {
     expect(typeof verify).toBe("function");
     expect(
       await verify({
-        data: [...exampleMultiMessage, exampleHolderSecretKey],
-        signature: new Uint8Array(
-          Buffer.from(
-            exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret,
-            "base64"
-          )
+        data: [
+          ...exampleMultiMessage,
+          Buffer.from(exampleHolderSecretKey, "base64"),
+        ],
+        signature: Buffer.from(
+          exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
+          "base64"
         ),
       })
-    ).toBeDefined();
+    ).toBeTruthy();
   });
 });

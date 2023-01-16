@@ -49,17 +49,14 @@ const badSignature =
 const badSignatureBadLength =
   "aaaaAdcLcdMzvXU6pNiQHv/9/Y5QzEQpLMAfducfqOTdt/Jc6alMUGHn972ZK9aAhJTxLYGRtnvBnsQPBPgZbW+COymHfuR9jcZhoQlnfXXminowFrWHez1H0Jp4iGkHU+OlXeePg93jQW737gJs3cv8Cg==";
 
-const _exampleHolderSecretKey = "W3PCMXuL2NPws4vQmraoMrl61egE//v7mWSkC3bDAcA=";
-
-const exampleHolderSecretKey = new Uint8Array(
-  Buffer.concat([U8_STRING, Buffer.from(_exampleHolderSecretKey)])
-);
+const exampleHolderSecretKey =
+  "ADVENlBhOGRTd0FwZG5mZzdFWlI4V25HZnZMRENaUFpHc1o1WTFFTEw5VkRq";
 
 const exampleHolderSecretCommitment =
-  "lBz1iEi8PZ0zAK4T3Vos3zDlBSkGGe8C/IynmWR9TXhvQpaEBvmQi2bdkpiU0ipv";
+  "lDc9hC3vyQ1voqaT13NO/F+8ZAsZGryU3e/z4LT6XbHbxzdS8brIn1q6XOYvloU4";
 
-const exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret =
-  "i1+KGjD15FzQAhWctnOlHjTPjESd7dH/VXjKoJramBE5otPJj43jHMPK8kfr9mlHFEhBKzGeG/FRBQWwCS8VvPVh7m12mJmyAPOwpVqs7KNfoZM2Pzn+DVgcaBYHHmAFl6ANnrRXGsu0cs4Lw/MocA==";
+const exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment =
+  "jWRTS/6uKCG+j3PeOxk6dvJA5JUgROHaUkScZ3G17wpthLPeG+5mqhdCVoz3I6A/VeakC+QbFFLdCszmqM94v6X7J96uVWJwt942gluboxhHwbunnwcC4faeaU3iUWfZTON2w9tVScp0KSgRXD3nNA==";
 
 export {
   exampleBls12381G1JwkKeyPair,
@@ -82,5 +79,5 @@ export {
   badSignatureBadLength,
   exampleHolderSecretKey,
   exampleHolderSecretCommitment,
-  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecret,
+  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
 };
