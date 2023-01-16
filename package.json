@@ -55,7 +55,7 @@
     "typescript": "4.4.3"
   },
   "dependencies": {
-    "@zkp-ld/bbs-signatures": "0.6.14",
+    "@zkp-ld/bbs-signatures": "0.6.15",
     "bs58": "4.0.1",
     "rfc4648": "1.5.0"
   },
