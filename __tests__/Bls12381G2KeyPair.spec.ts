@@ -24,7 +24,7 @@ import {
   badSignature,
   badSignatureBadLength,
   exampleProverCommitment,
-  exampleHolderSecretKey,
+  exampleProverSecretKey,
   exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
 } from "./__fixtures__";
 
@@ -487,7 +487,7 @@ describe("Bls12381G2KeyPair", () => {
       await verify({
         data: [
           ...exampleMultiMessage,
-          Buffer.from(exampleHolderSecretKey, "base64"),
+          Buffer.from(exampleProverSecretKey, "base64"),
         ],
         signature: Buffer.from(
           exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,

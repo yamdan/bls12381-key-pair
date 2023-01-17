@@ -49,7 +49,7 @@ const badSignature =
 const badSignatureBadLength =
   "aaaaAdcLcdMzvXU6pNiQHv/9/Y5QzEQpLMAfducfqOTdt/Jc6alMUGHn972ZK9aAhJTxLYGRtnvBnsQPBPgZbW+COymHfuR9jcZhoQlnfXXminowFrWHez1H0Jp4iGkHU+OlXeePg93jQW737gJs3cv8Cg==";
 
-const exampleHolderSecretKey =
+const exampleProverSecretKey =
   "ADVENlBhOGRTd0FwZG5mZzdFWlI4V25HZnZMRENaUFpHc1o1WTFFTEw5VkRq";
 
 const exampleProverCommitment =
@@ -77,7 +77,7 @@ export {
   exampleMultiMessageG2KeySignature,
   badSignature,
   badSignatureBadLength,
-  exampleHolderSecretKey,
+  exampleProverSecretKey,
   exampleProverCommitment,
   exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
 };
