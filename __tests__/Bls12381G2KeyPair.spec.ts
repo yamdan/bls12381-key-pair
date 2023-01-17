@@ -36,7 +36,7 @@ import {
 import base58 from "bs58";
 
 const key = new Bls12381G2KeyPair(exampleBls12381G2KeyPair);
-const { sign } = key.signer();
+const { sign, blindSign } = key.signer();
 const { verify } = key.verifier();
 
 describe("Bls12381G2KeyPair", () => {
@@ -422,7 +422,7 @@ describe("Bls12381G2KeyPair", () => {
   it("should sign multiple messages with proverCommitment", async () => {
     expect(typeof sign).toBe("function");
     const proverCommitment = Buffer.from(exampleProverCommitment, "base64");
-    const signature = await sign({
+    const signature = await blindSign({
       data: exampleMultiMessage,
       proverCommitment,
     });

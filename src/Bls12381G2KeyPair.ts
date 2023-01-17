@@ -72,34 +72,13 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
       async sign(): Promise<Uint8Array> {
         throw new Error("No private key to sign with.");
       },
+      async blindSign(): Promise<Uint8Array> {
+        throw new Error("No private key to sign with.");
+      },
     };
   }
   return {
-    async sign({ data, proverCommitment }): Promise<Uint8Array> {
-      /**
-       * @description
-       * if proverCommitment is inputted, use blindBlsSign
-       */
-      if (proverCommitment instanceof Uint8Array) {
-        if (data instanceof Uint8Array) {
-          return await blindBlsSign({
-            messages: [data],
-            keyPair: {
-              secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
-              publicKey: new Uint8Array(key.publicKeyBuffer),
-            },
-            commitment: proverCommitment,
-          });
-        }
-        return await blindBlsSign({
-          messages: data,
-          keyPair: {
-            secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
-            publicKey: new Uint8Array(key.publicKeyBuffer),
-          },
-          commitment: proverCommitment,
-        });
-      }
+    async sign({ data }): Promise<Uint8Array> {
       //TODO assert data runtime Uint8Array | Uint8Array[]
       if (data instanceof Uint8Array) {
         return await blsSign({
@@ -116,6 +95,26 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
           secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
           publicKey: new Uint8Array(key.publicKeyBuffer),
         },
+      });
+    },
+    async blindSign({ data, proverCommitment }): Promise<Uint8Array> {
+      if (data instanceof Uint8Array) {
+        return await blindBlsSign({
+          messages: [data],
+          keyPair: {
+            secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+            publicKey: new Uint8Array(key.publicKeyBuffer),
+          },
+          commitment: proverCommitment,
+        });
+      }
+      return await blindBlsSign({
+        messages: data,
+        keyPair: {
+          secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+          publicKey: new Uint8Array(key.publicKeyBuffer),
+        },
+        commitment: proverCommitment,
       });
     },
   };
