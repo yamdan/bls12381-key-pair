@@ -52,10 +52,10 @@ const badSignatureBadLength =
 const exampleHolderSecretKey =
   "ADVENlBhOGRTd0FwZG5mZzdFWlI4V25HZnZMRENaUFpHc1o1WTFFTEw5VkRq";
 
-const exampleHolderSecretCommitment =
+const exampleProverCommitment =
   "lDc9hC3vyQ1voqaT13NO/F+8ZAsZGryU3e/z4LT6XbHbxzdS8brIn1q6XOYvloU4";
 
-const exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment =
+const exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment =
   "jWRTS/6uKCG+j3PeOxk6dvJA5JUgROHaUkScZ3G17wpthLPeG+5mqhdCVoz3I6A/VeakC+QbFFLdCszmqM94v6X7J96uVWJwt942gluboxhHwbunnwcC4faeaU3iUWfZTON2w9tVScp0KSgRXD3nNA==";
 
 export {
@@ -78,6 +78,6 @@ export {
   badSignature,
   badSignatureBadLength,
   exampleHolderSecretKey,
-  exampleHolderSecretCommitment,
-  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
+  exampleProverCommitment,
+  exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
 };

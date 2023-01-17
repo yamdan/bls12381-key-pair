@@ -75,12 +75,12 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
     };
   }
   return {
-    async sign({ data, holderSecretCommitment }): Promise<Uint8Array> {
+    async sign({ data, proverCommitment }): Promise<Uint8Array> {
       /**
        * @description
-       * if holderSecretCommitment is inputted, use blindBlsSign
+       * if proverCommitment is inputted, use blindBlsSign
        */
-      if (holderSecretCommitment instanceof Uint8Array) {
+      if (proverCommitment instanceof Uint8Array) {
         if (data instanceof Uint8Array) {
           return await blindBlsSign({
             messages: [data],
@@ -88,7 +88,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
               secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
               publicKey: new Uint8Array(key.publicKeyBuffer),
             },
-            commitment: holderSecretCommitment,
+            commitment: proverCommitment,
           });
         }
         return await blindBlsSign({
@@ -97,7 +97,7 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
             secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
             publicKey: new Uint8Array(key.publicKeyBuffer),
           },
-          commitment: holderSecretCommitment,
+          commitment: proverCommitment,
         });
       }
       //TODO assert data runtime Uint8Array | Uint8Array[]

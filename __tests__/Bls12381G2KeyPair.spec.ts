@@ -23,9 +23,9 @@ import {
   exampleSingleMessageG2KeySignature,
   badSignature,
   badSignatureBadLength,
-  exampleHolderSecretCommitment,
+  exampleProverCommitment,
   exampleHolderSecretKey,
-  exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
+  exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
 } from "./__fixtures__";
 
 import { Bls12381G2KeyPair } from "../src";
@@ -419,15 +419,12 @@ describe("Bls12381G2KeyPair", () => {
     expect(signature).toBeDefined();
   });
 
-  it("should sign multiple messages with holderSecretCommitment", async () => {
+  it("should sign multiple messages with proverCommitment", async () => {
     expect(typeof sign).toBe("function");
-    const holderSecretCommitment = Buffer.from(
-      exampleHolderSecretCommitment,
-      "base64"
-    );
+    const proverCommitment = Buffer.from(exampleProverCommitment, "base64");
     const signature = await sign({
       data: exampleMultiMessage,
-      holderSecretCommitment,
+      proverCommitment,
     });
     expect(signature).toBeDefined();
   });
@@ -484,7 +481,7 @@ describe("Bls12381G2KeyPair", () => {
     expect(await verify({ data: exampleMultiMessage, signature })).toBe(true);
   });
 
-  it("should sign and verify multiple messages with holderSecretCommitment", async () => {
+  it("should sign and verify multiple messages with proverCommitment", async () => {
     expect(typeof verify).toBe("function");
     expect(
       await verify({
@@ -493,7 +490,7 @@ describe("Bls12381G2KeyPair", () => {
           Buffer.from(exampleHolderSecretKey, "base64"),
         ],
         signature: Buffer.from(
-          exampleMultiMessageG2KeyUnblindedSignatureWithBlindedHolderSecretCommitment,
+          exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
           "base64"
         ),
       })
