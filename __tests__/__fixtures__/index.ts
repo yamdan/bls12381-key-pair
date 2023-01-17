@@ -49,6 +49,15 @@ const badSignature =
 const badSignatureBadLength =
   "aaaaAdcLcdMzvXU6pNiQHv/9/Y5QzEQpLMAfducfqOTdt/Jc6alMUGHn972ZK9aAhJTxLYGRtnvBnsQPBPgZbW+COymHfuR9jcZhoQlnfXXminowFrWHez1H0Jp4iGkHU+OlXeePg93jQW737gJs3cv8Cg==";
 
+const exampleProverSecretKey =
+  "ADVENlBhOGRTd0FwZG5mZzdFWlI4V25HZnZMRENaUFpHc1o1WTFFTEw5VkRq";
+
+const exampleProverCommitment =
+  "lDc9hC3vyQ1voqaT13NO/F+8ZAsZGryU3e/z4LT6XbHbxzdS8brIn1q6XOYvloU4";
+
+const exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment =
+  "jWRTS/6uKCG+j3PeOxk6dvJA5JUgROHaUkScZ3G17wpthLPeG+5mqhdCVoz3I6A/VeakC+QbFFLdCszmqM94v6X7J96uVWJwt942gluboxhHwbunnwcC4faeaU3iUWfZTON2w9tVScp0KSgRXD3nNA==";
+
 export {
   exampleBls12381G1JwkKeyPair,
   exampleBls12381G1JwkPublicKey,
@@ -68,4 +77,7 @@ export {
   exampleMultiMessageG2KeySignature,
   badSignature,
   badSignatureBadLength,
+  exampleProverSecretKey,
+  exampleProverCommitment,
+  exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
 };

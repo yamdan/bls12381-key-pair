@@ -19,6 +19,12 @@ export interface KeyPairSigner {
    * Signer function
    */
   readonly sign: (options: KeyPairSignerOptions) => Promise<Uint8Array>;
+  /**
+   * Signer function for blindSign
+   */
+  readonly blindSign: (
+    options: KeyPairSignerForBlindSignOptions
+  ) => Promise<Uint8Array>;
 }
 
 /**
@@ -26,4 +32,12 @@ export interface KeyPairSigner {
  */
 export interface KeyPairSignerOptions {
   readonly data: Uint8Array | Uint8Array[];
+}
+
+/**
+ * Key pair signer for blindSign options
+ */
+export interface KeyPairSignerForBlindSignOptions {
+  readonly data: Uint8Array | Uint8Array[];
+  readonly proverCommitment: Uint8Array;
 }

@@ -19,6 +19,7 @@ import {
   generateBls12381G2KeyPair,
   blsVerify,
   blsSign,
+  blindBlsSign,
 } from "@zkp-ld/bbs-signatures";
 import {
   JsonWebKey,
@@ -71,6 +72,9 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
       async sign(): Promise<Uint8Array> {
         throw new Error("No private key to sign with.");
       },
+      async blindSign(): Promise<Uint8Array> {
+        throw new Error("No private key to sign with.");
+      },
     };
   }
   return {
@@ -91,6 +95,26 @@ const signerFactory = (key: Bls12381G2KeyPair): KeyPairSigner => {
           secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
           publicKey: new Uint8Array(key.publicKeyBuffer),
         },
+      });
+    },
+    async blindSign({ data, proverCommitment }): Promise<Uint8Array> {
+      if (data instanceof Uint8Array) {
+        return await blindBlsSign({
+          messages: [data],
+          keyPair: {
+            secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+            publicKey: new Uint8Array(key.publicKeyBuffer),
+          },
+          commitment: proverCommitment,
+        });
+      }
+      return await blindBlsSign({
+        messages: data,
+        keyPair: {
+          secretKey: new Uint8Array(key.privateKeyBuffer as Uint8Array),
+          publicKey: new Uint8Array(key.publicKeyBuffer),
+        },
+        commitment: proverCommitment,
       });
     },
   };
