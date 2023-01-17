@@ -39,5 +39,5 @@ export interface KeyPairSignerOptions {
  */
 export interface KeyPairSignerForBlindSignOptions {
   readonly data: Uint8Array | Uint8Array[];
-  proverCommitment: Uint8Array;
+  readonly proverCommitment: Uint8Array;
 }
