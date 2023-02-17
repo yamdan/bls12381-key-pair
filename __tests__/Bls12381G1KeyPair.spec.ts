@@ -16,13 +16,13 @@ import {
   exampleBls12381G1JwkPublicKey,
   exampleBls12381G1JwkInvalidKeyPair,
   exampleBls12381G1KeyPair,
-  exampleBls12381G1PublicKey,
+  exampleBls12381G1PublicKey
 } from "./__fixtures__";
 
 import { Bls12381G1KeyPair } from "../src";
 import {
   DEFAULT_BLS12381_PRIVATE_KEY_LENGTH,
-  DEFAULT_BLS12381_G1_PUBLIC_KEY_LENGTH,
+  DEFAULT_BLS12381_G1_PUBLIC_KEY_LENGTH
 } from "@zkp-ld/bbs-signatures";
 import base58 from "bs58";
 
@@ -167,7 +167,7 @@ describe("Bls12381G1KeyPair", () => {
 
   it("should load public key from fingerprint", async () => {
     const myLdKey = Bls12381G1KeyPair.fromFingerprint({
-      fingerprint: `z3tEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycM`,
+      fingerprint: `z3tEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycM`
     });
 
     expect(myLdKey.id).toBe(
@@ -192,7 +192,7 @@ describe("Bls12381G1KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not start with multibase", async () => {
     expect(() =>
       Bls12381G1KeyPair.fromFingerprint({
-        fingerprint: `3tEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycM`,
+        fingerprint: `3tEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycM`
       })
     ).toThrowError(
       "Unsupported fingerprint type: expected first character to be `z` indicating base58 encoding, received `3`"
@@ -202,7 +202,7 @@ describe("Bls12381G1KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not contain correct key identifier", async () => {
     expect(() =>
       Bls12381G1KeyPair.fromFingerprint({
-        fingerprint: `zB1ZL5zsY9YggjXupcFmsv9Vtc58EcXmV9AT2eHKn4o74KHL68CzG8Ar31MTGeSVJtuzZ`,
+        fingerprint: `zB1ZL5zsY9YggjXupcFmsv9Vtc58EcXmV9AT2eHKn4o74KHL68CzG8Ar31MTGeSVJtuzZ`
       })
     ).toThrowError(
       "Unsupported public key identifier: expected second character to be `234` indicating BLS12381G1 key pair, received `14`"
@@ -212,7 +212,7 @@ describe("Bls12381G1KeyPair", () => {
   it("should throw error loading public key from fingerprint when it does not contain trailing byte integer", async () => {
     expect(() =>
       Bls12381G1KeyPair.fromFingerprint({
-        fingerprint: `z3tjAJuBxTzjVo3XEG3zx2XGtHtr2HkczcaZcwkBYQYzEbyr3gZi5DuZrQ28x2BwwnHfqy`,
+        fingerprint: `z3tjAJuBxTzjVo3XEG3zx2XGtHtr2HkczcaZcwkBYQYzEbyr3gZi5DuZrQ28x2BwwnHfqy`
       })
     ).toThrowError(
       "Missing variable integer trailing byte: expected third character to be `1` indicating trailing integer, received `180`"
@@ -222,7 +222,7 @@ describe("Bls12381G1KeyPair", () => {
   it("should throw error loading public key from fingerprint when length is incorrect", async () => {
     expect(() =>
       Bls12381G1KeyPair.fromFingerprint({
-        fingerprint: `z3tzEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycMaaaaaa`,
+        fingerprint: `z3tzEGWeoHSJzYmJLezqJsbSBW31o3wuYRusP5Cp7JTkSeNSqQNMbrdZaDupQ7DHWGYoycMaaaaaa`
       })
     ).toThrowError(
       "Unsupported public key length: expected `48` received `54`"
@@ -267,7 +267,7 @@ describe("Bls12381G1KeyPair", () => {
     const myLdKey = new Bls12381G1KeyPair(exampleBls12381G1KeyPair);
 
     const fingerprint = Bls12381G1KeyPair.fingerprintFromPublicKey({
-      publicKeyBase58: myLdKey.publicKey,
+      publicKeyBase58: myLdKey.publicKey
     });
 
     expect(fingerprint).toEqual(
@@ -331,7 +331,7 @@ describe("Bls12381G1KeyPair", () => {
   it("should generate new key", async () => {
     const myLdKey = await Bls12381G1KeyPair.generate({
       id: "did:example:489398593#test",
-      controller: "did:example:489398593",
+      controller: "did:example:489398593"
     });
 
     expect(myLdKey.id).toBe("did:example:489398593#test");
@@ -357,7 +357,7 @@ describe("Bls12381G1KeyPair", () => {
         base58.decode(
           "2Dk1kmfJaZT2wbWd81piFyKBkd2ip29B3rfEpLud4bCBK3MwUXfk2z3YSLFeNojENkJzW"
         )
-      ),
+      )
     });
 
     expect(myLdKey.id).toBe("test-key-id");

@@ -16,7 +16,7 @@ import { base64url } from "rfc4648";
 import bs58 from "bs58";
 import {
   DEFAULT_BLS12381_G1_PUBLIC_KEY_LENGTH,
-  generateBls12381G1KeyPair,
+  generateBls12381G1KeyPair
 } from "@zkp-ld/bbs-signatures";
 import {
   JsonWebKey,
@@ -25,11 +25,11 @@ import {
   KeyPairVerifier,
   GenerateKeyPairOptions,
   JwkKeyPairOptions,
-  BlsCurveName,
+  BlsCurveName
 } from "./types";
 import {
   assertBls12381G1PrivateJwk,
-  assertBls12381G1PublicJwk,
+  assertBls12381G1PublicJwk
 } from "./validators";
 import { convertBase64urlToBase58 } from "./utils";
 
@@ -179,7 +179,7 @@ export class Bls12381G1KeyPair {
     return new Bls12381G1KeyPair({
       ...options,
       privateKeyBase58: bs58.encode(keyPair.secretKey as Uint8Array),
-      publicKeyBase58: bs58.encode(keyPair.publicKey),
+      publicKeyBase58: bs58.encode(keyPair.publicKey)
     });
   }
 
@@ -214,7 +214,7 @@ export class Bls12381G1KeyPair {
         id,
         controller,
         publicKeyBase58: convertBase64urlToBase58(privateKeyJwk.x as string),
-        privateKeyBase58: convertBase64urlToBase58(privateKeyJwk.d as string),
+        privateKeyBase58: convertBase64urlToBase58(privateKeyJwk.d as string)
       });
     }
 
@@ -222,7 +222,7 @@ export class Bls12381G1KeyPair {
       return new Bls12381G1KeyPair({
         id,
         controller,
-        publicKeyBase58: convertBase64urlToBase58(publicKeyJwk.x as string),
+        publicKeyBase58: convertBase64urlToBase58(publicKeyJwk.x as string)
       });
     }
 
@@ -241,7 +241,7 @@ export class Bls12381G1KeyPair {
   static fromFingerprint({
     id,
     controller,
-    fingerprint,
+    fingerprint
   }: any): Bls12381G1KeyPair {
     if (fingerprint.substr(0, 1) != MULTIBASE_ENCODED_BASE58_IDENTIFIER) {
       throw new Error(
@@ -280,21 +280,21 @@ export class Bls12381G1KeyPair {
     //Defaults the controller to a DID key based controller
     if (!controller) {
       controller = `did:key:${Bls12381G1KeyPair.fingerprintFromPublicKey({
-        publicKeyBase58,
+        publicKeyBase58
       })}`;
     }
 
     //Defaults the id to the did key based fragment
     if (!id) {
       id = `#${Bls12381G1KeyPair.fingerprintFromPublicKey({
-        publicKeyBase58,
+        publicKeyBase58
       })}`;
     }
 
     return new Bls12381G1KeyPair({
       id,
       controller,
-      publicKeyBase58,
+      publicKeyBase58
     });
   }
 
@@ -335,7 +335,7 @@ export class Bls12381G1KeyPair {
       kid: this.id,
       kty: "EC",
       crv: BlsCurveName.G1,
-      x: base64url.stringify(this.publicKeyBuffer, { pad: false }),
+      x: base64url.stringify(this.publicKeyBuffer, { pad: false })
     };
   }
 
@@ -363,7 +363,7 @@ export class Bls12381G1KeyPair {
         kty: "EC",
         crv: BlsCurveName.G1,
         x: base64url.stringify(this.publicKeyBuffer, { pad: false }),
-        d: base64url.stringify(this.privateKeyBuffer, { pad: false }),
+        d: base64url.stringify(this.privateKeyBuffer, { pad: false })
       };
     }
     return undefined;
@@ -428,7 +428,7 @@ export class Bls12381G1KeyPair {
     ) {
       return {
         error: new Error("`fingerprint` must be a multibase encoded string."),
-        valid: false,
+        valid: false
       };
     }
     let fingerprintBuffer;
@@ -446,7 +446,7 @@ export class Bls12381G1KeyPair {
     if (!valid) {
       return {
         error: new Error("The fingerprint does not match the public key."),
-        valid: false,
+        valid: false
       };
     }
     return { valid };
