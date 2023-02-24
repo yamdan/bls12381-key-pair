@@ -36,7 +36,7 @@ const exampleSingleMessageG1KeySignature =
 
 const exampleMultiMessage = [
   new Uint8Array(Buffer.concat([U8_STRING, Buffer.from("test")])),
-  new Uint8Array(Buffer.concat([U8_STRING, Buffer.from("value")])),
+  new Uint8Array(Buffer.concat([U8_STRING, Buffer.from("value")]))
 ];
 const exampleMultiMessageG2KeySignature =
   "gTeYNYnogNM2En/YLq7pEtDDOi1PIlVtKBevXQjIMZtk1KdOtApAw2HUNV0eFG5mXhD28X0tmXbubLqwQb0K/lKxVZJvTS2MyuP1bRDnsyJB9tOE/AnpoNDWKnjjVu6tQNgG3YNQsJZhVgvHyUAo8A==";
@@ -79,5 +79,5 @@ export {
   badSignatureBadLength,
   exampleProverSecretKey,
   exampleProverCommitment,
-  exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment,
+  exampleMultiMessageG2KeyUnblindedSignatureWithProverCommitment
 };
