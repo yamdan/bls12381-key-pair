@@ -1,3 +1,14 @@
+# [0.8.0](https://github.com/zkp-ld/bls12381-key-pair/compare/v0.6.0...v0.8.0) (2023-02-24)
+
+
+### Features
+
+* add support for octet key pair and add new curve names ([#51](https://github.com/zkp-ld/bls12381-key-pair/issues/51)) ([375ccf1](https://github.com/zkp-ld/bls12381-key-pair/commit/375ccf1be7ab47b47f16bf92b51db0bd611d1d9d))
+* import @yamdan/bbs-signatures ([7c69719](https://github.com/zkp-ld/bls12381-key-pair/commit/7c69719c230cfe24cd867222fcfe07bbd7ca0ea7))
+* support range proofs (experimental) ([060d6c3](https://github.com/zkp-ld/bls12381-key-pair/commit/060d6c3bfeff9ea4e6707f51b4bdd3cab714c312))
+
+
+
 # [0.7.0](https://github.com/mattrglobal/bls12381-key-pair/compare/v0.6.0...v0.7.0) (2021-08-04)
 
 ### Features
